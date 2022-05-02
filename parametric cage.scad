@@ -34,7 +34,7 @@ separateParts = 1; // [0: Together, 1: Separate]
 cage_diameter=28; // [28:40]
 
 // Length of cage from base ring to cage tip
-penis_length=52; // [30:200]
+penis_length=60; // [30:200]
 
 // Base ring diameter
 base_ring_diameter=42; // [30:55]
@@ -70,7 +70,7 @@ lock_margin = 0.1; // [0:0.01:1]
 part_margin = 0.2; // [0:0.01:1]
 
 // X-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_x=20; // [0:0.1:200]
+bend_point_x=24; // [0:0.1:200]
 
 // Z-axis coordinate of the bend point (the center of the arc the cage bends around)
 bend_point_z=10; // [0:0.1:200]
@@ -157,8 +157,8 @@ $fn=32;
 make();
 
 module make() {
-  cage();
-  //make_base();
+  //cage();
+  make_base();
 }
 
 module make_base() {
