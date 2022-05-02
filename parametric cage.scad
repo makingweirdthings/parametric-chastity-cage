@@ -269,7 +269,8 @@ module lock_dovetail_inner() {
     // Cut a cavity for the lock module
     dx(-R1-r3-mount_width/2-lock_lateral) ry(tilt) dz(lock_vertical) dy(19-mount_length/2) {
       stealth_lock(lock_margin);
-      rx(-90) cylinder(r=3.1+lock_margin, h=mount_length-19);
+        //check 3.5:
+      rx(-90) cylinder(r=3.5+lock_margin, h=mount_length-19);
     }
   }
 }
@@ -284,7 +285,7 @@ module lock_dovetail_outer() {
       // Cut a cavity for the lock module
       sy(1.01) dx(-R1-r3-mount_width/2-lock_lateral) ry(tilt) dz(lock_vertical) dy(19-mount_length/2) {
         stealth_lock(lock_margin);
-        rx(-90) cylinder(r=3.1+lock_margin, h=mount_length-19);
+        rx(-90) cylinder(r=3.5+lock_margin, h=mount_length-19);
       }
     }
     union() {
