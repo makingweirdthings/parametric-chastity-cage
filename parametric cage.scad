@@ -28,22 +28,22 @@ use <torus.scad>
 use <vec3math.scad>
 
 // Render cage and ring separately
-separateParts = 0; // [0: Together, 1: Separate]
+separateParts = 1; // [0: Together, 1: Separate]
 
 // Cage diameter
 cage_diameter=35; // [30:40]
 
 // Length of cage from base ring to cage tip
-penis_length=90; // [30:200]
+penis_length=70; // [30:200]
 
 // Base ring diameter
 base_ring_diameter=45; // [30:55]
 
 // Thickness of base ring 
-base_ring_thickness=6; // [6:10]
+base_ring_thickness=8; // [6:10]
 
 // Add a "wave" to the base ring (contours to the body a little better)
-wavyBase = 1; // [0: Flat, 1: Wavy]
+wavyBase = 0; // [0: Flat, 1: Wavy]
 
 // If the base ring has a wave, set the angle of the wave
 waveAngle = 12; // [0:45]
@@ -52,7 +52,7 @@ waveAngle = 12; // [0:45]
 gap=10; // [10:20]
 
 // Thickness of the rings of the cage
-cage_bar_thickness=4; // [4:8]
+cage_bar_thickness=6; // [4:8]
 
 // Number of vertical bars on the cage
 cage_bar_count=8;
@@ -61,7 +61,7 @@ cage_bar_count=8;
 slit_width=12; // [0:40]
 
 // Tilt angle of the cage at the base ring
-tilt=15; // [0:30]
+tilt=12; // [0:30]
 
 // If your lock fits too tightly in the casing, add some space around it here
 lock_margin = 0.1; // [0:0.01:1]
@@ -73,7 +73,7 @@ part_margin = 0.2; // [0:0.01:1]
 bend_point_x=50; // [0:0.1:200]
 
 // Z-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_z=15; // [0:0.1:200]
+bend_point_z=10; // [0:0.1:200]
 
 /* [Hidden] */
 
@@ -81,9 +81,9 @@ bend_point_z=15; // [0:0.1:200]
 glans_cage_height=cage_diameter/2; // [15:50]
 
 // Variables affecting the lock case
-lock_case_upper_radius = 9;
-lock_case_lower_radius = 4;
-base_lock_bridge_width = 11;
+lock_case_upper_radius = 12;
+lock_case_lower_radius = 10;
+base_lock_bridge_width = 12;
 mount_width=5;
 mount_height=18;
 mount_length=24;
