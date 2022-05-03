@@ -28,16 +28,16 @@ use <torus.scad>
 use <vec3math.scad>
 
 // Render cage and ring separately
-separateParts = 1; // [0: Together, 1: Separate]
+separateParts = 0; // [0: Together, 1: Separate]
 
 // Cage diameter
-cage_diameter=28; // [28:40]
+cage_diameter=30; // [28:40]
 
 // Length of cage from base ring to cage tip
-penis_length=60; // [30:200]
+penis_length=64; // [30:200]
 
 // Base ring diameter
-base_ring_diameter=42; // [30:55]
+base_ring_diameter=44; // [30:55]
 
 // Thickness of base ring 
 base_ring_thickness=9; // [6:10]
@@ -52,7 +52,7 @@ waveAngle = 12; // [0:45]
 gap=10; // [10:20]
 
 // Thickness of the rings of the cage
-cage_bar_thickness=4; // [4:8]
+cage_bar_thickness=4.5; // [4:8]
 
 // Number of vertical bars on the cage
 cage_bar_count=10;
@@ -70,7 +70,7 @@ lock_margin = 0.1; // [0:0.01:1]
 part_margin = 0.2; // [0:0.01:1]
 
 // X-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_x=24; // [0:0.1:200]
+bend_point_x=28; // [0:0.1:200]
 
 // Z-axis coordinate of the bend point (the center of the arc the cage bends around)
 bend_point_z=10; // [0:0.1:200]
@@ -157,7 +157,7 @@ $fn=32;
 make();
 
 module make() {
-  //cage();
+  cage();
   make_base();
 }
 
