@@ -18,5 +18,8 @@ include $(wildcard *.deps)
 %.stl: %.generated.scad
 	openscad -DFN=64 -m make -o $@ -d $@.deps $<
 
+image:
+	openscad -DFN=32 --render --imgsize 1600,1200 --colorscheme Nature -o main.png main.scad
+
 clean:
 	rm -rf ${GENERATED_FILES}
