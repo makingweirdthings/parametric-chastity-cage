@@ -30,7 +30,7 @@ use <vec3math.scad>
 FN=32;
 
 // Render cage and ring separately
-separateParts = 1; // [0: Together, 1: Separate]
+separateParts = 0; // [0: Together, 1: Separate]
 
 // Cage diameter
 cage_diameter=30; // [28:40]
@@ -39,13 +39,16 @@ cage_diameter=30; // [28:40]
 penis_length=64; // [30:200]
 
 // Base ring diameter
-base_ring_diameter=44; // [30:55]
+base_ring_diameter=42; // [30:55]
 
 // Thickness of base ring 
-base_ring_thickness=9; // [6:10]
+base_ring_thickness=7; // [6:10]
+
+// Base ring flatness/circularness
+base_ring_flatten_factor = 1.6; // [1:0.1:1.6]
 
 // Add a "wave" to the base ring (contours to the body a little better)
-wavyBase = 0; // [0: Flat, 1: Wavy]
+wavyBase = 1; // [0: Flat, 1: Wavy]
 
 // If the base ring has a wave, set the angle of the wave
 waveAngle = 12; // [0:45]
@@ -338,10 +341,11 @@ module mount_flat() {
 }
 
 module base_ring() {
+  
   if (wavyBase) {
-    dz(-gap) dx(R2+r2-R1-r1-gap*tan(tilt)) wavy_torus(R2+r2, r2, waveAngle);
+    dz(-gap) dx(R2+r2-R1-r1-gap*tan(tilt)) scale([1,1,base_ring_flatten_factor]) wavy_torus(R2+r2, r2, waveAngle);
   } else {
-    dz(-gap) dx(R2+r2-R1-r1-gap*tan(tilt)) torus(R2+r2, r2);
+    dz(-gap) dx(R2+r2-R1-r1-gap*tan(tilt)) scale([1,1,base_ring_flatten_factor]) torus(R2+r2, r2);
   }
 }
 
