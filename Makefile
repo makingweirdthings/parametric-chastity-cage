@@ -16,7 +16,7 @@ include $(wildcard *.deps)
 	echo 'use <main.scad>\n$*();' > $@
 
 %.stl: %.generated.scad
-	openscad -m make -o $@ -d $@.deps $<
+	openscad -DFN=64 -m make -o $@ -d $@.deps $<
 
 clean:
 	rm -rf ${GENERATED_FILES}

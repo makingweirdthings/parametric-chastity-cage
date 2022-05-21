@@ -27,8 +27,10 @@ use <torus.scad>
 // Use separate module for computing points along the cage path
 use <vec3math.scad>
 
+FN=32;
+
 // Render cage and ring separately
-separateParts = 0; // [0: Together, 1: Separate]
+separateParts = 1; // [0: Together, 1: Separate]
 
 // Cage diameter
 cage_diameter=30; // [28:40]
@@ -81,9 +83,9 @@ bend_point_z=10; // [0:0.1:200]
 glans_cage_height=cage_diameter/2.2; // [15:50]
 
 // Variables affecting the lock case
-lock_case_upper_radius = 12;
-lock_case_lower_radius = 10;
-base_lock_bridge_width = 12;
+lock_case_upper_radius = 9;
+lock_case_lower_radius = 4;
+base_lock_bridge_width = 11;
 mount_width=5;
 mount_height=18;
 mount_length=24;
@@ -153,12 +155,12 @@ R = ry(Q-P, Phi) + P;
 //
 // Finally, here's where the modules begin
 //
-$fn=32;
+$fn=FN;
 make();
 
 module make() {
     make_base();
-    cage();
+    make_cage();
 }
 
 module make_base() //make me
@@ -309,7 +311,7 @@ module lock_case_shape(length, outer=false) {
   
   hull() {
     dx(-R1-r3-mount_width/2-lock_case_upper_radius+lock_case_lower_radius) dz(lock_case_lower_radius-r3-extra) rx(90) rounded_cylinder(lock_case_lower_radius, length, rounding, center=true);
-    dx(-R1-r3-mount_width/2) dz(mount_height*cos(tilt) - lock_case_upper_radius) rx(90) rounded_cylinder(lock_case_upper_radius, length, rounding, center=true);
+    dx(-3-R1-r3-mount_width/2) dz(mount_height*cos(tilt) - lock_case_upper_radius) rx(90) rounded_cylinder(lock_case_upper_radius, length, rounding, center=true);
     dz(lock_case_lower_radius-r3-extra) rx(90) rounded_cylinder(lock_case_lower_radius, length, rounding, center=true);
     dz(mount_height*cos(tilt)-lock_case_lower_radius) rx(90) rounded_cylinder(lock_case_lower_radius, length, rounding, center=true);
   }
