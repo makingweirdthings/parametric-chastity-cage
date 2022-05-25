@@ -57,13 +57,13 @@ waveAngle = 12; // [0:45]
 gap=10; // [10:20]
 
 // Thickness of the rings of the cage
-cage_bar_thickness=4.5; // [4:8]
+cage_bar_thickness=6; // [4:8]
 
 // Number of vertical bars on the cage
-cage_bar_count=10;
+cage_bar_count=8;
 
 // Width of the slit at the front opening
-slit_width=12; // [0:40]
+slit_width=14; // [0:40]
 
 // Tilt angle of the cage at the base ring
 tilt=8; // [0:30]
@@ -75,10 +75,10 @@ lock_margin = 0.1; // [0:0.01:1]
 part_margin = 0.2; // [0:0.01:1]
 
 // X-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_x=28; // [0:0.1:200]
+bend_point_x=35; // [0:0.1:200]
 
 // Z-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_z=10; // [0:0.1:200]
+bend_point_z=0; // [0:0.1:200]
 
 /* [Hidden] */
 
