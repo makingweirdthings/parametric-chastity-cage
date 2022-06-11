@@ -33,10 +33,10 @@ FN=32;
 separateParts = 0; // [0: Together, 1: Separate]
 
 // Cage diameter
-cage_diameter=30; // [28:40]
+cage_diameter=32; // [28:40]
 
 // Length of cage from base ring to cage tip
-penis_length=64; // [30:200]
+penis_length=75; // [30:200]
 
 // Base ring diameter
 base_ring_diameter=42; // [30:55]
@@ -57,7 +57,7 @@ waveAngle = 12; // [0:45]
 gap=10; // [10:20]
 
 // Thickness of the rings of the cage
-cage_bar_thickness=6; // [4:8]
+cage_bar_thickness=7; // [4:8]
 
 // Number of vertical bars on the cage
 cage_bar_count=8;
@@ -75,10 +75,10 @@ lock_margin = 0.1; // [0:0.01:1]
 part_margin = 0.2; // [0:0.01:1]
 
 // X-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_x=35; // [0:0.1:200]
+bend_point_x=40; // [0:0.1:200]
 
 // Z-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_z=0; // [0:0.1:200]
+bend_point_z=5; // [0:0.1:200]
 
 /* [Hidden] */
 
