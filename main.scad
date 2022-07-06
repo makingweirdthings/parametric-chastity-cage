@@ -54,10 +54,10 @@ wavyBase = 1; // [0: Flat, 1: Wavy]
 waveAngle = 12; // [0:45]
 
 // Gap between the bottom of the cage and the base ring
-gap=10; // [10:20]
+gap=14; // [10:20]
 
 // Thickness of the rings of the cage
-cage_bar_thickness=7; // [4:8]
+cage_bar_thickness=4; // [4:8]
 
 // Number of vertical bars on the cage
 cage_bar_count=8;
@@ -304,7 +304,7 @@ module lock_dovetail_outer() {
   hull() {
     dz(-2*r3) dy(-mount_length/2) mx() dx(R1+2*r3*sin(tilt)+part_margin) rounded_cube([base_lock_bridge_width, mount_length, r3-part_margin], (r3-part_margin)/2.01);
     dz(-gap) dx(-R1-r3-gap*sin(tilt)) rx(90) cylinder(r=r3/2, h=mount_length, center=true);
-    dx(R2+2*r2-R1-r3-r2-gap*sin(tilt)) dz(-gap) rz(165) torus(R2+2*r2, r3/2, 30);
+    //dx(R2+2*r2-R1-r3-r2-gap*sin(tilt)) dz(-gap) rz(165) torus(R2+2*r2, r3/2, 30);
   }
 }
 
