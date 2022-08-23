@@ -45,16 +45,16 @@ base_ring_diameter=42; // [30:55]
 base_ring_thickness=7; // [6:10]
 
 // Base ring flatness/circularness
-base_ring_flatten_factor = 1.6; // [1:0.1:1.6]
+base_ring_flatten_factor = 2; // [1:0.1:2]
 
 // Add a "wave" to the base ring (contours to the body a little better)
 wavyBase = 1; // [0: Flat, 1: Wavy]
 
 // If the base ring has a wave, set the angle of the wave
-waveAngle = 12; // [0:45]
+waveAngle = 8; // [0:45]
 
 // Gap between the bottom of the cage and the base ring
-gap=14; // [10:20]
+gap=15; // [10:20]
 
 // Thickness of the rings of the cage
 cage_bar_thickness=4; // [4:8]
@@ -88,7 +88,7 @@ glans_cage_height=cage_diameter/2.2; // [15:50]
 // Variables affecting the lock case
 lock_case_upper_radius = 9;
 lock_case_lower_radius = 4;
-base_lock_bridge_width = 11;
+base_lock_bridge_width = 13;
 mount_width=5;
 mount_height=18;
 mount_length=24;
@@ -170,7 +170,7 @@ module make_base() //make me
 {
   baseOrigin = separateParts ? [-base_ring_diameter-cage_diameter, 0, gap] : [0, 0, 0];
   translate(baseOrigin) {
-    base_ring();
+    dz(-gap) dx(R2+r2-R1-r1-gap*tan(tilt)) scale([1,1,base_ring_flatten_factor]) base_ring();
     lock_dovetail_outer();
   }
 }
@@ -302,8 +302,8 @@ module lock_dovetail_outer() {
   }
   // Add a connecting block between the lock part and the base ring:
   hull() {
-    dz(-2*r3) dy(-mount_length/2) mx() dx(R1+2*r3*sin(tilt)+part_margin) rounded_cube([base_lock_bridge_width, mount_length, r3-part_margin], (r3-part_margin)/2.01);
-    dz(-gap) dx(-R1-r3-gap*sin(tilt)) rx(90) cylinder(r=r3/2, h=mount_length, center=true);
+    dz(-2*r3) dy(-mount_length/2) mx() dx(R1+0.5*r3*sin(tilt)+part_margin) rounded_cube([base_lock_bridge_width, mount_length, r3-part_margin], (r3-part_margin)/2.01);
+    #dz(-gap) dx(-R1-r3-gap*sin(tilt)+1) rx(90) cylinder(r=r3/2, h=mount_length, center=true);
     //dx(R2+2*r2-R1-r3-r2-gap*sin(tilt)) dz(-gap) rz(165) torus(R2+2*r2, r3/2, 30);
   }
 }
@@ -343,9 +343,9 @@ module mount_flat() {
 module base_ring() {
   
   if (wavyBase) {
-    dz(-gap) dx(R2+r2-R1-r1-gap*tan(tilt)) scale([1,1,base_ring_flatten_factor]) wavy_torus(R2+r2, r2, waveAngle);
+     wavy_torus(R2+r2, r2, waveAngle);
   } else {
-    dz(-gap) dx(R2+r2-R1-r1-gap*tan(tilt)) scale([1,1,base_ring_flatten_factor]) torus(R2+r2, r2);
+    torus(R2+r2, r2);
   }
 }
 
