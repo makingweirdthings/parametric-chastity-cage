@@ -36,25 +36,25 @@ separateParts = 0; // [0: Together, 1: Separate]
 cage_diameter=26; // [26:40]
 
 // Length of cage from base ring to cage tip
-penis_length=64; // [30:200]
+penis_length=54; // [30:200]
 
 // Base ring diameter
 base_ring_diameter=42; // [30:55]
 
 // Thickness of base ring 
-base_ring_thickness=7; // [6:10]
+base_ring_thickness=8; // [6:10]
 
 // Base ring flatness/circularness
-base_ring_flatten_factor = 2; // [1:0.1:2]
+base_ring_flatten_factor = 1; // [1:0.1:2]
 
 // Add a "wave" to the base ring (contours to the body a little better)
-wavyBase = 1; // [0: Flat, 1: Wavy]
+wavyBase = 0; // [0: Flat, 1: Wavy]
 
 // If the base ring has a wave, set the angle of the wave
 waveAngle = 8; // [0:45]
 
 // Gap between the bottom of the cage and the base ring
-gap=15; // [10:20]
+gap=10; // [10:20]
 
 // Thickness of the rings of the cage
 cage_bar_thickness=4; // [4:8]
@@ -63,7 +63,7 @@ cage_bar_thickness=4; // [4:8]
 cage_bar_count=8;
 
 // Width of the slit at the front opening
-slit_width=18; // [0:40]
+slit_width=14; // [0:40]
 
 // Tilt angle of the cage at the base ring
 tilt=8; // [0:30]
@@ -305,7 +305,7 @@ module lock_dovetail_outer() {
   // Add a connecting block between the lock part and the base ring:
   hull() {
     dz(-2*r3) dy(-mount_length/2) mx() dx(R1+0.5*r3*sin(tilt)+part_margin) rounded_cube([base_lock_bridge_width, mount_length, r3-part_margin], (r3-part_margin)/2.01);
-    #dz(-gap) dx(-R1-r3-gap*sin(tilt)+1) rx(90) cylinder(r=r3/2, h=mount_length, center=true);
+    dz(-gap-r3) dx(-R1-r3-gap*sin(tilt)+1) rx(90) cylinder(r=0.1, h=mount_length, center=true);
     //dx(R2+2*r2-R1-r3-r2-gap*sin(tilt)) dz(-gap) rz(165) torus(R2+2*r2, r3/2, 30);
   }
 }
