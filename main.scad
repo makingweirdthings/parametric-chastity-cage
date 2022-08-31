@@ -33,10 +33,10 @@ FN=32;
 separateParts = 0; // [0: Together, 1: Separate]
 
 // Cage diameter
-cage_diameter=32; // [28:40]
+cage_diameter=26; // [26:40]
 
 // Length of cage from base ring to cage tip
-penis_length=75; // [30:200]
+penis_length=64; // [30:200]
 
 // Base ring diameter
 base_ring_diameter=42; // [30:55]
@@ -63,7 +63,7 @@ cage_bar_thickness=4; // [4:8]
 cage_bar_count=8;
 
 // Width of the slit at the front opening
-slit_width=14; // [0:40]
+slit_width=18; // [0:40]
 
 // Tilt angle of the cage at the base ring
 tilt=8; // [0:30]
@@ -75,7 +75,7 @@ lock_margin = 0.1; // [0:0.01:1]
 part_margin = 0.2; // [0:0.01:1]
 
 // X-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_x=40; // [0:0.1:200]
+bend_point_x=45; // [0:0.1:200]
 
 // Z-axis coordinate of the bend point (the center of the arc the cage bends around)
 bend_point_z=5; // [0:0.1:200]
@@ -234,7 +234,9 @@ module glans_cap() {
   real_slit_width = max(min(slit_width, cage_diameter), 0.1);
   translate(R) ry(Phi+tilt) {
     // Ring around base of glans cap
-    torus(R1+r1, r1);
+    ring_opening = (360/cage_bar_count);
+    rotate([0,0,ring_opening/2])
+      torus(R1+r1, r1, phi=(360-ring_opening));
     // Calculate the start and end points of the bars that create the front slit
     slitRadius = (R1+r1)*cos(asin(real_slit_width/2/(R1+r1)));
     slitStart = [slitRadius, -real_slit_width/2, 0];
