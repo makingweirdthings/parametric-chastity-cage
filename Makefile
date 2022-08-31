@@ -19,7 +19,7 @@ include $(wildcard *.deps)
 	openscad -DFN=64 -m make -o $@ -d $@.deps $<
 
 image:
-	openscad -DFN=32 --render --imgsize 1600,1200 --colorscheme Nature -o main.png main.scad
+	openscad -DFN=32 --render --camera 7,3,5,70,0,50,265 --imgsize 1600,1000 -o main.png main.scad
 
 clean:
 	rm -rf ${GENERATED_FILES}
