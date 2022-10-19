@@ -33,10 +33,10 @@ FN=32;
 separateParts = 0; // [0: Together, 1: Separate]
 
 // Cage diameter
-cage_diameter=26; // [26:40]
+cage_diameter=27; // [26:40]
 
 // Length of cage from base ring to cage tip
-penis_length=54; // [30:200]
+penis_length=58; // [30:200]
 
 // Base ring diameter
 base_ring_diameter=42; // [30:55]
@@ -48,13 +48,13 @@ base_ring_thickness=8; // [6:10]
 base_ring_flatten_factor = 1; // [1:0.1:2]
 
 // Add a "wave" to the base ring (contours to the body a little better)
-wavyBase = 0; // [0: Flat, 1: Wavy]
+wavyBase = 1; // [0: Flat, 1: Wavy]
 
 // If the base ring has a wave, set the angle of the wave
-waveAngle = 8; // [0:45]
+waveAngle = 16; // [0:45]
 
 // Gap between the bottom of the cage and the base ring
-gap=10; // [10:20]
+gap=12; // [10:20]
 
 // Thickness of the rings of the cage
 cage_bar_thickness=4; // [4:8]
@@ -75,7 +75,7 @@ lock_margin = 0.1; // [0:0.01:1]
 part_margin = 0.2; // [0:0.01:1]
 
 // X-axis coordinate of the bend point (the center of the arc the cage bends around)
-bend_point_x=45; // [0:0.1:200]
+bend_point_x=30; // [0:0.1:200]
 
 // Z-axis coordinate of the bend point (the center of the arc the cage bends around)
 bend_point_z=5; // [0:0.1:200]
@@ -247,7 +247,7 @@ module glans_cap() {
     dy(real_slit_width/2) rx(90) torus(slitRadius, r1, 180);
     
     // Draw each cage bar (minus the part that would enter the slit area)
-    for (theta = [step/2:step:180-step/2]) {
+    *for (theta = [step/2:step:180-step/2]) {
       // Do not calculate/draw the bar if the bar begins within the slit area
       if ((R1+r1)*sin(theta) > real_slit_width/2) {
         // Compute arc length of this side bar
@@ -257,6 +257,16 @@ module glans_cap() {
         rz(180+theta) rx(90) torus(R1+r1, r1, arcLength);
       }
     }
+
+    glans_cap_thickness = cage_bar_thickness/2;
+    difference() 
+    {
+      sphere(r=R1+glans_cap_thickness);
+      sphere(r=R1);
+      dz(-R1) cube([R1*3,R1*3,R1*2], center=true);
+      dz((R1+glans_cap_thickness)/2) cube([R1*3,real_slit_width-(cage_bar_thickness/2),R1+glans_cap_thickness], center=true);
+    }
+    
   }
 }
 
