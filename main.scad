@@ -27,8 +27,6 @@ use <torus.scad>
 // Use separate module for computing points along the cage path
 use <vec3math.scad>
 
-FN=32;
-
 // Render cage and ring separately
 separateParts = 0; // [0: Together, 1: Separate]
 
@@ -39,7 +37,7 @@ cage_diameter=27; // [26:40]
 penis_length=58; // [30:200]
 
 // Base ring diameter
-base_ring_diameter=42; // [30:55]
+base_ring_diameter=42; // [30:75]
 
 // Thickness of base ring 
 base_ring_thickness=8; // [6:10]
@@ -158,7 +156,7 @@ R = ry(Q-P, Phi) + P;
 //
 // Finally, here's where the modules begin
 //
-$fn=FN;
+$fn=96;
 make();
 
 module make() {
@@ -175,15 +173,6 @@ module make_base() //make me
   }
 }
 
-// Generate a cylinder with rounded edges
-module rounded_cylinder(r,h,n, center=false) {
-  zshift = center ? -h/2 : 0;
-  dz(zshift) rotate_extrude(convexity=1) {
-    offset(r=n) offset(delta=-n) square([r,h]);
-    square([n,h]);
-  }
-}
-
 // Generate a cube with rounded edges
 module rounded_cube(size, radius, center=false) {
   offset = center ? [0, 0, 0] : [radius, radius, radius];
@@ -195,6 +184,18 @@ module rounded_cube(size, radius, center=false) {
 		], center=center);
 		sphere(r = radius);
 	}
+}
+module rounded_cylinder(r,h,r2, center=false)
+{
+  zshift = center ? -h/2 : 0;
+  dz(zshift)
+    rotate_extrude(convexity=1)
+        union() {
+            square([r - r2, h]);
+            square([r, h - r2]);
+            translate([r - r2, h - r2])
+                circle(r = r2);
+        }
 }
 
 module make_cage() //make me
@@ -257,16 +258,6 @@ module glans_cap() {
         rz(180+theta) rx(90) torus(R1+r1, r1, arcLength);
       }
     }
-
-    glans_cap_thickness = cage_bar_thickness/2;
-    difference() 
-    {
-      sphere(r=R1+glans_cap_thickness);
-      sphere(r=R1);
-      dz(-R1) cube([R1*3,R1*3,R1*2], center=true);
-      dz((R1+glans_cap_thickness)/2) cube([R1*3,real_slit_width-(cage_bar_thickness/2),R1+glans_cap_thickness], center=true);
-    }
-    
   }
 }
 
