@@ -156,7 +156,7 @@ R = ry(Q-P, Phi) + P;
 //
 // Finally, here's where the modules begin
 //
-$fn=96;
+$fn = $preview ? 32 : 96;
 make();
 
 module make() {
@@ -192,12 +192,14 @@ module rounded_cylinder(r,h,r2, center=false)
     rotate_extrude(convexity=1)
         union() {
             square([r - r2, h]);
-            square([r, h - r2]);
+            translate([0, r2])
+            square([r, h - r2*2]);
             translate([r - r2, h - r2])
+                circle(r = r2);
+            translate([r - r2, r2])
                 circle(r = r2);
         }
 }
-
 module make_cage() //make me
 {
   cage_bar_segments(); // The bars
@@ -305,21 +307,25 @@ module lock_dovetail_outer() {
   }
   // Add a connecting block between the lock part and the base ring:
   hull() {
-    dz(-2*r3) dy(-mount_length/2) mx() dx(R1+0.5*r3*sin(tilt)+part_margin) rounded_cube([base_lock_bridge_width, mount_length, r3-part_margin], (r3-part_margin)/2.01);
-    dz(-gap-r3) dx(-R1-r3-gap*sin(tilt)+1) rx(90) cylinder(r=0.1, h=mount_length, center=true);
-    //dx(R2+2*r2-R1-r3-r2-gap*sin(tilt)) dz(-gap) rz(165) torus(R2+2*r2, r3/2, 30);
+    dz(-2*r3) dy(-mount_length/2) mx() dx(R1+0.5*r3*sin(tilt)+part_margin)
+      rounded_cube([base_lock_bridge_width - part_margin+0.4, mount_length, r3-part_margin], (r3-part_margin)/2.01);
+    dz(-gap-r3) dx(-R1-r3-gap*sin(tilt)+1) rx(90)
+      cylinder(r=0.1, h=mount_length, center=true);
+    dx(R2+2*r2-R1-r3-r2-gap*sin(tilt)) dz(-gap) rz(165)
+      torus(R2+2*r2, r3/2, 30);
   }
 }
 
 // A hull of four rounded cylinders to create the main lock body. It extends down a bit more for the outer lock piece
 module lock_case_shape(length, outer=false) {
   extra = outer ? r3 : 0;
+  lower_radius = outer ? 2 : lock_case_lower_radius;
   
   hull() {
-    dx(-R1-r3-mount_width/2-lock_case_upper_radius+lock_case_lower_radius) dz(lock_case_lower_radius-r3-extra) rx(90) rounded_cylinder(lock_case_lower_radius, length, rounding, center=true);
+    dx(-R1-r3-mount_width/2-lock_case_upper_radius+lower_radius) dz(lower_radius-r3-extra) rx(90) rounded_cylinder(lower_radius, length, rounding, center=true);
     dx(-3-R1-r3-mount_width/2) dz(mount_height*cos(tilt) - lock_case_upper_radius) rx(90) rounded_cylinder(lock_case_upper_radius, length, rounding, center=true);
-    dz(lock_case_lower_radius-r3-extra) rx(90) rounded_cylinder(lock_case_lower_radius, length, rounding, center=true);
-    dz(mount_height*cos(tilt)-lock_case_lower_radius) rx(90) rounded_cylinder(lock_case_lower_radius, length, rounding, center=true);
+    dz(lower_radius-r3-extra) rx(90) rounded_cylinder(lower_radius, length, rounding, center=true);
+    dz(mount_height*cos(tilt)-lower_radius) rx(90) rounded_cylinder(lower_radius, length, rounding, center=true);
   }
 }
 
