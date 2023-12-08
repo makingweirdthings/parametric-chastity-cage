@@ -40,7 +40,7 @@ penis_length=58; // [30:200]
 base_ring_diameter=42; // [30:75]
 
 // Thickness of base ring 
-base_ring_thickness=8; // [6:10]
+base_ring_thickness=8.0; // [6.0:0.5:10.0]
 
 // Base ring flatness/circularness
 base_ring_flatten_factor = 1; // [1:0.1:2]
@@ -248,6 +248,8 @@ module glans_cap() {
     // Draw slit bars
     dy(-real_slit_width/2) rx(90) torus(slitRadius, r1, 180);
     dy(real_slit_width/2) rx(90) torus(slitRadius, r1, 180);
+    dy(-real_slit_width/2) dx(slitRadius) sphere(r=r1);
+    dy(real_slit_width/2) dx(slitRadius) sphere(r=r1);
     
     // Draw each cage bar (minus the part that would enter the slit area)
     *for (theta = [step/2:step:180-step/2]) {
